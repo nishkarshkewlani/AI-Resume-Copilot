@@ -1,12 +1,16 @@
 from fastapi import FastAPI, UploadFile, Form
 from fastapi.responses import HTMLResponse
 import shutil
+from fastapi.staticfiles import StaticFiles
 
-from resume_parser import parse_resume
-from jd_parser import extract_keywords
-from similarity import calculate_similarity
+from app.resume_parser import parse_resume
+from app.jd_parser import extract_keywords
+from app.similarity import calculate_similarity
+
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 def home():
@@ -27,7 +31,7 @@ async def analyze(resume: UploadFile, job_description: str = Form(...)):
 
     similarity = calculate_similarity(resume_text, job_description)
 
-    ats_score = round(similarity * 100,2)
+    ats_score = round(float(similarity) * 100, 2)
 
     missing_keywords = [
         k for k in keywords if k not in resume_text.lower()

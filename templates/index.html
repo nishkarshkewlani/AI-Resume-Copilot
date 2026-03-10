@@ -2,29 +2,29 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="/static/css/style.css">
 <title>AI Resume Copilot</title>
 </head>
 
 <body>
+
+<div class="container">
 
 <h1>AI Resume Copilot</h1>
 
 <form action="/analyze" method="post" enctype="multipart/form-data">
 
 <label>Upload Resume</label>
-<input type="file" name="resume">
-
-<br><br>
+<input type="file" name="resume" required>
 
 <label>Paste Job Description</label>
-
-<textarea name="job_description" rows="10" cols="60"></textarea>
-
-<br><br>
+<textarea name="job_description" rows="6" required></textarea>
 
 <button type="submit">Analyze Resume</button>
 
 </form>
+
+</div>
 
 </body>
 </html>
